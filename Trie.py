@@ -21,5 +21,5 @@ def insert( raiz, chave):
 
 raiz = No()
 raiz = insert(raiz,'preto')
-print(raiz[0])
+print(raiz[0].filhos)
 
