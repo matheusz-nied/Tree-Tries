@@ -79,6 +79,28 @@ def alturaTrie(raiz):
     calculaAltura(raiz, palavra, 0)
 
 
+def autocomplete(raiz,prefix):
+    no = raiz
+    for letra in prefix:
+        i = mapeiaCharParaIndice(letra)
+        if(no.filhos[i] is None):
+            print(f"NÃO foi encontrada o prefixo {prefix}.")
+            return False
+        no = no.filhos[i]
+
+    return palavrasParaCompletar(prefix, no)
+
+def palavrasParaCompletar(prefix, no):
+
+    pilha = []
+
+    matches = []
+
+    if (no.finalPalavra):
+        matches.append(prefix)
+    
+    for()
+
 # -------------MAIN------------
 
 # Quebra de linha para melhorar estética
@@ -119,3 +141,5 @@ alturaTrie(raiz)
 print(f"Altura da árvore Trie é: {altura}")
 # Quebra de linha para melhorar estética
 print()
+autocomplete(raiz, "pr")
+
