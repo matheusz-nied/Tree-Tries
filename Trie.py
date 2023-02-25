@@ -1,3 +1,10 @@
+# Rodar o arquivo Trie.py em python 3
+# Caso não consiga executar o código,
+# eu o deixei no seguinte site que é um interpretador online.
+# Basta acessar o link
+# https://onlinegdb.com/-3nB77Y21
+
+
 MAX_SYMBOLS = 30
 
 
@@ -43,9 +50,9 @@ def listarTrie(raiz):
 def listar(raiz, palavra, nivel):
     for j in range(nivel, MAX_SYMBOLS):
         palavra[j] = "\0"
+
     if (raiz.finalPalavra != False):
         print()
-
         for letra in palavra:
 
             if(letra != None):
@@ -53,7 +60,6 @@ def listar(raiz, palavra, nivel):
                 print(f"{letra}", end="")
 
     for i in range(0, MAX_SYMBOLS):
-
         #i = mapeiaCharParaIndice(palavra[i])
         if(raiz.filhos[i]):
             palavra[nivel] = chr(i + ord('a'))
@@ -68,18 +74,17 @@ def alturaTrie(raiz):
         global altura
         if(nivel > altura):
             altura = nivel
-            
+
         for i in range(0, MAX_SYMBOLS):
             if(raiz.filhos[i]):
                 palavra[nivel] = chr(i + ord('a'))
 
                 calculaAltura(raiz.filhos[i], palavra, nivel + 1)
 
-
     calculaAltura(raiz, palavra, 0)
 
 
-def autocomplete(raiz,prefix):
+def autocomplete(raiz, prefix):
     no = raiz
     for letra in prefix:
         i = mapeiaCharParaIndice(letra)
@@ -88,22 +93,33 @@ def autocomplete(raiz,prefix):
             return False
         no = no.filhos[i]
 
-    return palavrasParaCompletar(prefix, no)
+    palavra = [None] * MAX_SYMBOLS
+    listarPrefix(no, prefix, palavra, 0)
 
-def palavrasParaCompletar(prefix, no):
+    # return palavrasParaCompletar(prefix, no)
 
-    pilha = []
 
-    matches = []
+def listarPrefix(raiz, prefix, palavra, nivel):
+    for j in range(nivel, MAX_SYMBOLS):
+        palavra[j] = "\0"
+    if (raiz.finalPalavra != False):
+        print()
+        print(f"{prefix}", end="")
+        for letra in palavra:
 
-    if (no.finalPalavra):
-        matches.append(prefix)
-    
-    for()
+            if(letra != None):
 
+                print(f"{letra}", end="")
+
+    for i in range(0, MAX_SYMBOLS):
+
+        #i = mapeiaCharParaIndice(palavra[i])
+        if(raiz.filhos[i]):
+            palavra[nivel] = chr(i + ord('a'))
+            listarPrefix(raiz.filhos[i], prefix, palavra, nivel + 1)
 # -------------MAIN------------
 
-# Quebra de linha para melhorar estética
+
 print()
 
 # Inserindo
@@ -130,16 +146,16 @@ buscar(raiz, "verde")
 buscar(raiz, "preto")
 buscar(raiz, "amarelo")
 
-# Quebra de linha para melhorar estética
-print()
 
-# Calculando altura
-
-#Altura é utilizada como variável global dentro da função
+# Altura é utilizada como variável global dentro da função
 altura = 0
 alturaTrie(raiz)
-print(f"Altura da árvore Trie é: {altura}")
+print(f"\nAltura da árvore Trie é: {altura} \n")
+
+
+prefix = input("Entre com o prefixo que deseja autocompletar: ")
+
+autocomplete(raiz, prefix)
+
 # Quebra de linha para melhorar estética
 print()
-autocomplete(raiz, "pr")
-
